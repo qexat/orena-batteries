@@ -56,7 +56,9 @@ S @n * @m → @m + { @n * @m }
 @n ^ S @m → @n * { @n ^ @m }
 @n ^ @m ^ @p → @n ^ { @m ^ @p }
 
-;; square root
+;; -- square root -- ;;
+;; this helper function is not meant to be used outside of this
+;; module but there is no publicity system yet
 solve square root polynomial 0 @p @q @r → p
 solve square root polynomial { S @n } @p @q 0 →
   solve square root polynomial @n { S @p } { S { S @q } } { S { S @q } }

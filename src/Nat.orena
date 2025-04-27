@@ -67,7 +67,7 @@ solve square root polynomial { S @n } @p @q { S @r } →
 
 ;; factorial
 0! → 1
-{ S @n }! → S @n * @n!
+{ S @n }! → S @n * { @n! }
 
 ;; simple functions
 double @n → @n + @n

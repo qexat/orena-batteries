@@ -1,0 +1,29 @@
+;; type Bool
+#atom ⊥ ;; false
+#atom ⊤ ;; true
+
+;; equality
+@b = @b → ⊤
+@b = @c → ⊥
+
+;; negation
+¬⊤ → ⊥
+¬⊥ → ⊤
+
+;; conjunction
+⊥ ∧ ⊥ → ⊥
+⊤ ∧ @b → @b
+@b ∧ ⊤ → @b
+
+;; disjunction
+⊤ ∨ ⊤ → ⊤
+⊥ ∨ @b → @b
+@b ∨ ⊥ → @b
+
+;; exclusive disjunction
+@a ⊻ @b → ¬{@a = @b}
+
+;; implications
+@a -> @b → ¬@a ∨ @b
+@a <-> @b → { @a -> @b } ∧ { @b -> @a } 
+

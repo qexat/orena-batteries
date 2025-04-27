@@ -1,0 +1,19 @@
+;; type Pair(@T, @U)
+#atom (@a, @b)
+
+(@a, @b) = (@c, @d) →
+  { #open #module_of(@a) #in
+    @a = @c
+  } and
+  { #open #module_of(@b) #in
+    @b = @d
+  }
+
+first of (@a, @_) → @a
+second of (@_, @b) → @b
+
+map $f $g over (@a, @b) → ($f @a, $g @b)
+map $f over first of @p → map $f Fun::$identity over @p
+map $f over second of @p → map Fun::$identity $f over @p
+map $f over both of @p → map $f $f @p
+

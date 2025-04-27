@@ -1,0 +1,9 @@
+;; type Fun(@T, @U)
+
+#define identity := $(@x → @x)
+
+first @x @_ → @x
+second @_ @y → @y
+
+flip $f → $(f @x @y → f @y @x)
+

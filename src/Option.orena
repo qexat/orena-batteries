@@ -1,0 +1,25 @@
+;; type Option(@T)
+#atom None
+#atom Some @a
+
+;; equality
+None = None → Bool::⊤
+None = Some @_ → Bool::⊥
+Some @_ = None → Bool::⊥
+Some @a = Some @b →
+  { #open #module_of(@a) #in
+    @a = @b
+  }
+
+map $f over None → None
+map $f over { Some @a } → Some { $f @a } 
+
+join None → None
+join { Some None } → None
+join { Some { Some @a } } → Some @a
+
+bind @option to $f → join { map $f over @option }
+
+unwrap None or @fallback → @fallback
+unwrap { Some @a } or @_ → @a
+

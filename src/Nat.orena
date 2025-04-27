@@ -74,7 +74,7 @@ solve square root polynomial { S @n } @p @q { S @r } →
 ;; simple functions
 double @n → @n + @n
 square @n → @n * @n
-absolute value @n → @n
+absolute value of @n → @n
 
 ;; predicates
 0 is even → ⊤

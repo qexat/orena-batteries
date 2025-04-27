@@ -22,4 +22,3 @@ bind @option to $f → join { map $f over @option }
 
 unwrap None or @fallback → @fallback
 unwrap { Some @a } or @_ → @a
-

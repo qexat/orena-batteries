@@ -82,4 +82,3 @@ absolute value of @n → @n
 S { S @n } is even → @n is even
 
 @n is odd → ¬{ @n is even }
-

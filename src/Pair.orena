@@ -16,4 +16,3 @@ map $f $g over (@a, @b) → ($f @a, $g @b)
 map $f over first of @p → map $f Fun::$identity over @p
 map $f over second of @p → map Fun::$identity $f over @p
 map $f over both of @p → map $f $f @p
-

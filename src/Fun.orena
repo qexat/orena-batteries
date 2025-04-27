@@ -9,4 +9,3 @@ second of @_ @y → @y
 
 ;; WARNING: higher-order symbols are not stable yet
 flip $f → $(f @x @y → f @y @x)
-

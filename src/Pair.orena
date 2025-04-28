@@ -1,12 +1,5 @@
 atom (@a, @b)
 
-rule Equality
-  (@a, @b) = (@c, @d) →
-  \let use #module_of(@a)::{ Equality } in  ;; unstable
-    { @a = @c } and
-  \let use #module_of(@b)::{ Equality } in  ;; unstable
-    { @b = @d }
-
 rule First
   first of (@a, @_) → @a
 

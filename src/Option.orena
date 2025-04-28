@@ -1,14 +1,6 @@
 atom None
 atom Some @a
 
-rule Equality
-  None = None → Bool::⊤
-  None = Some @_ → Bool::⊥
-  Some @_ = None → Bool::⊥
-  Some @a = Some @b →
-  \let use #module_of(@a)::{ Equality } in  ;; unstable
-    @a = @b
-
 rule Map
   map $f over None → None
   map $f over { Some @a } → Some { $f @a } 

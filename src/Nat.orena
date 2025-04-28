@@ -3,7 +3,7 @@ use Bool::{ ⊤, ⊥, Disjunction }
 atom 0
 atom S @n ;; successor function (n + 1)
 
-;; So we can use 1, 2, 3... instead of S 0, S {S O}, S {S {S O}}...
+;; So we can use 1, 2, 3... instead of S 0, S {S 0}, S {S {S 0}}...
 ;; It is a compiler pragma because there is no nice way to compute
 ;; the "Peano form" of a literal number with an arbitrary digit count.
 ;; Furthermore, this also allows us to use digit separators, e.g. to

@@ -1,24 +1,26 @@
-;; type Option(@T)
-#atom None
-#atom Some @a
+atom None
+atom Some @a
 
-;; equality
-None = None → Bool::⊤
-None = Some @_ → Bool::⊥
-Some @_ = None → Bool::⊥
-Some @a = Some @b →
-  { #open #module_of(@a) #in
+rule Equality
+  None = None → Bool::⊤
+  None = Some @_ → Bool::⊥
+  Some @_ = None → Bool::⊥
+  Some @a = Some @b →
+  \let use #module_of(@a)::{ Equality } in  ;; unstable
     @a = @b
-  }
 
-map $f over None → None
-map $f over { Some @a } → Some { $f @a } 
+rule Map
+  map $f over None → None
+  map $f over { Some @a } → Some { $f @a } 
 
-join None → None
-join { Some None } → None
-join { Some { Some @a } } → Some @a
+rule Join
+  join None → None
+  join { Some None } → None
+  join { Some { Some @a } } → Some @a
 
-bind @option to $f → join { map $f over @option }
+rule Bind
+  bind @option to $f → join { map $f over @option }
 
-unwrap None or @fallback → @fallback
-unwrap { Some @a } or @_ → @a
+rule Unwrap
+  unwrap None or @fallback → @fallback
+  unwrap { Some @a } or @_ → @a

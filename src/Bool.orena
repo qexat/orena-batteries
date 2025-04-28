@@ -1,28 +1,27 @@
-;; type Bool
-#atom ⊥ ;; false
-#atom ⊤ ;; true
+atom ⊥  ;; false
+atom ⊤  ;; true
 
-;; equality
-@b = @b → ⊤
-@b = @c → ⊥
+rule Equality
+  @b = @b → ⊤
+  @b = @c → ⊥
 
-;; negation
-¬⊤ → ⊥
-¬⊥ → ⊤
+rule Negation
+  ¬⊤ → ⊥
+  ¬⊥ → ⊤
 
-;; conjunction
-⊥ ∧ ⊥ → ⊥
-⊤ ∧ @b → @b
-@b ∧ ⊤ → @b
+rule Conjunction
+  ⊥ ∧ ⊥ → ⊥
+  ⊤ ∧ @b → @b
+  @b ∧ ⊤ → @b
 
-;; disjunction
-⊤ ∨ ⊤ → ⊤
-⊥ ∨ @b → @b
-@b ∨ ⊥ → @b
+rule Disjunction
+  ⊤ ∨ ⊤ → ⊤
+  ⊥ ∨ @b → @b
+  @b ∨ ⊥ → @b
 
-;; exclusive disjunction
-@a ⊻ @b → ¬{@a = @b}
+rule ExclusiveDisjunction
+  @a ⊻ @b → ¬{@a = @b}
 
-;; implications
-@a -> @b → ¬@a ∨ @b
-@a <-> @b → { @a -> @b } ∧ { @b -> @a } 
+rule Implication
+  @a -> @b → ¬@a ∨ @b
+  @a <-> @b → { @a -> @b } ∧ { @b -> @a } 

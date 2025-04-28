@@ -1,8 +1,7 @@
-#use Bool
+use Bool::{ ⊤, ⊥, Disjunction }
 
-;; type Nat
-#atom 0
-#atom S @n ;; successor function (n + 1)
+atom 0
+atom S @n ;; successor function (n + 1)
 
 ;; So we can use 1, 2, 3... instead of S 0, S {S O}, S {S {S O}}...
 ;; It is a compiler pragma because there is no nice way to compute
@@ -12,73 +11,79 @@
 #pragma register(LITERAL_ZERO, 0)
 #pragma register(LITERAL_SUCC, S)
 
-;; equality
-0 = 0 → ⊤
-0 = S @n → ⊥
-S @n = 0 → ⊥
-S @n = S @m → @n = @m
+rule Equality
+  0 = 0 → ⊤
+  0 = S @n → ⊥
+  S @n = 0 → ⊥
+  S @n = S @m → @n = @m
 
-;; greater
-0 > S @n → ⊥
-@n > 0 → ⊤
-S @n > S @m → @n > @m
+rule Greater
+  0 > S @n → ⊥
+  @n > 0 → ⊤
+  S @n > S @m → @n > @m
 
-@n >= @m → { @n = @m } or { @n > @m }
+  ;; or equal
+  @n >= @m → { @n = @m } ∨ { @n > @m }
 
-;; less
-0 < S @n → ⊤
-@n < 0 → ⊥
-S @n < S @m → @n < @m
+rule Less
+  0 < S @n → ⊤
+  @n < 0 → ⊥
+  S @n < S @m → @n < @m
 
-@n <= @m → { @n = @m } or { @n < @m }
+  ;; or equal
+  @n <= @m → { @n = @m } ∨ { @n < @m }
 
-;; addition
-0 + @n → @n
-@n + 0 → @n
-S @n + @m → @n + S @m
+rule Addition
+  0 + @n → @n
+  @n + 0 → @n
+  S @n + @m → @n + S @m
 
-;; subtraction
-@n - 0 → @n
-0 - @n → 0
-S @n - S @m → @n - @m
+rule Subtraction
+  @n - 0 → @n
+  0 - @n → 0
+  S @n - S @m → @n - @m
 
-;; multiplication
-0 * @n → 0
-@n * 0 → 0
-S @n * @m → @m + { @n * @m }
+rule Multiplication
+  0 * @n → 0
+  @n * 0 → 0
+  S @n * @m → @m + { @n * @m }
 
 ;; NOTE: division and modulo are currently missing because we need
 ;; more stuff before being able to implement them
+rule Divmod
+rule Division
+rule Modulo
 
-;; power
-@n ^ 0 → 1
-0 ^ @n → 0
-@n ^ S @m → @n * { @n ^ @m }
-@n ^ @m ^ @p → @n ^ { @m ^ @p }
+rule Exponent
+  @n ^ 0 → 1
+  0 ^ @n → 0
+  @n ^ S @m → @n * { @n ^ @m }
+  @n ^ @m ^ @p → @n ^ { @m ^ @p }
 
-;; -- square root -- ;;
-;; this helper function is not meant to be used outside of this
-;; module but there is no publicity system yet
-solve square root polynomial 0 @p @q @r → p
-solve square root polynomial { S @n } @p @q 0 →
-  solve square root polynomial @n { S @p } { S { S @q } } { S { S @q } }
-solve square root polynomial { S @n } @p @q { S @r } →
-  solve square root polynomial @n @p @q @r
+private rule SquareRootPolynomial
+  solve square root polynomial 0 @p @q @r → p
+  solve square root polynomial { S @n } @p @q 0 →
+    solve square root polynomial @n { S @p } { S { S @q } } { S { S @q } }
+  solve square root polynomial { S @n } @p @q { S @r } →
+    solve square root polynomial @n @p @q @r
 
-√@n → solve square root polynomial @n 0 0 0
+rule SquareRoot
+  √@n → solve square root polynomial @n 0 0 0
 
-;; factorial
-0! → 1
-{ S @n }! → S @n * { @n! }
+rule Factorial
+  0! → 1
+  { S @n }! → S @n * { @n! }
 
-;; simple functions
-double @n → @n + @n
-square @n → @n * @n
-absolute value of @n → @n
+rule SimpleFunctions
+  double @n → @n + @n
+  square @n → @n * @n
+  absolute value of @n → @n
 
-;; predicates
-0 is even → ⊤
-1 is even → ⊥
-S { S @n } is even → @n is even
+rule Predicates
+  ;; evenness
+  0 is even → ⊤
+  1 is even → ⊥
+  S { S @n } is even → @n is even
 
-@n is odd → ¬{ @n is even }
+  ;; oddness
+  @n is odd → ¬{ @n is even }

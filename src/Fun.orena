@@ -1,11 +1,11 @@
-;; type Fun(@T, @U)
+;; Functions do not exist in orena, but symbols can be used to
+;; mimic them when useful, e.g. passing them as arguments to
+;; higher-order symbols
 
-;; identity is defined as a symbol so it can be used as an
-;; argument of a higher-order symbol
-#define identity := $(@x → @x)
+let identity ≔ @x → @x
 
-first of @x @_ → @x
-second of @_ @y → @y
+let first ≔ @x @_ → @x
+let second ≔ @_ @y → @y
 
 ;; WARNING: higher-order symbols are not stable yet
-flip $f → $(f @x @y → f @y @x)
+let flip $f ≔ f @x @y → f @y @x

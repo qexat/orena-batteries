@@ -20,7 +20,7 @@ rule Disjunction
   @b ∨ ⊥ → @b
 
 rule ExclusiveDisjunction
-  @a ⊻ @b → ¬{@a = @b}
+  @a ⊻ @b → ¬{ @a = @b }
 
 rule Implication
   @a -> @b → ¬@a ∨ @b

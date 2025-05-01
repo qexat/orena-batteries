@@ -44,9 +44,9 @@ rule Subtraction
   S @n - S @m → @n - @m
 
 rule Multiplication
-  0 * @n → 0
-  @n * 0 → 0
-  S @n * @m → @m + { @n * @m }
+  0 × @n → 0
+  @n × 0 → 0
+  S @n × @m → @m + { @n × @m }
 
 ;; NOTE: division and modulo are currently missing because we need
 ;; more stuff before being able to implement them
